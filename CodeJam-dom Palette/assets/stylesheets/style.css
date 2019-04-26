@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Quantico Regular";
-    src: url(../../assets/fonts/Quantico-Regular.otf) format("opentype");
+    src: url(../fonts/Quantico-Regular.otf) format("opentype");
 }
 
 *{
@@ -9,7 +9,7 @@
     font-family: "Quantico Regular", sans-serif;
 }
 body{
-    background-image: url(../../assets/pictures/background.jpg);
+    background-image: url(../pictures/background.jpg);
 }
 .header {
     max-width: 1400px;
