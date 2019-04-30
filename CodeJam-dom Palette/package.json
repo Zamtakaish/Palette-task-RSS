@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ./assets/scripts/script.js"
+    "lint": "eslint ./assets/scripts/script.js",
+    "fix": "eslint --fix ./assets/scripts/script.js"
   },
   "author": "Zamtakaish zuzikov.anton@gmail.com",
   "license": "ISC",
