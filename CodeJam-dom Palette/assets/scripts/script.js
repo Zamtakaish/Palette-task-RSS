@@ -4,6 +4,7 @@ const buttonContainer = document.getElementsByClassName("main__workspace__tools_
 const buttons = buttonContainer[0].getElementsByClassName("main__workspace__tools__items__tool");
 const canvas = document.getElementsByClassName("main__workspace__canvas");
 const canvasCells = canvas[0].getElementsByClassName("main__workspace__canvas__item");
+const reset = document.getElementsByClassName("footer_button_reset")[0];
 
 function setActive() {
     function setActiveByKeybind(){
@@ -157,31 +158,25 @@ function setCanvas(){
         moveCell();
 }
 
-/*function canvasRespond(){
-    for (let i = 0; i < canvasCells.length; i++) {
-        canvasCells[i].addEventListener("click", function(event) {
-            if (buttonContainer[0].getElementsByClassName("active")[0] === buttons[0]){
-                canvasCells[i].style.backgroundColor = getComputedStyle(document.getElementsByClassName("main__workspace__colors__palette__item_color-display_current-color")[0]).backgroundColor;
-            }
-            if (buttonContainer[0].getElementsByClassName("active")[0] === buttons[3]){
-                if (getComputedStyle(canvasCells[i]).borderRadius === '0px'){
-                    canvasCells[i].style.borderRadius = '50%';
-                }
-                else
-                    canvasCells[i].style.borderRadius = '0';
-            }
-        });
-        canvasCells[i].addEventListener("mousedown", function(event){
-            if (buttonContainer[0].getElementsByClassName("active")[0] === buttons[2]){
-                move(this, event);
+function setAdditionalInterface(){
+    function resetLocalStorage(){
+        reset.addEventListener("click", function(){
+            if (event.which === 1){
+                localStorage.clear();
+                document.location.reload();
             }
         });
     }
-}*/
+    return function(){
+        resetLocalStorage();
+    }()
+}
+
 function run(){
     setActive();
     chooseColor();
     setCanvas();
+    setAdditionalInterface();
 }
 
 run();
