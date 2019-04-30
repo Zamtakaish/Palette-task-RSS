@@ -59,6 +59,11 @@ function chooseColor() {
 }
 
 function move(elem, e){
+
+    if (e.which != 1) {
+        return;
+    }
+
     let shiftX = e.pageX;
     let shiftY = e.pageY;
     const prevX = +getComputedStyle(elem).left.slice(0, -2);
@@ -74,7 +79,6 @@ function move(elem, e){
     document.onmousemove = function(e) {
         moveAt(e);
     };
-
     elem.onmouseup = function() {
         document.onmousemove = null;
         elem.onmouseup = null;
