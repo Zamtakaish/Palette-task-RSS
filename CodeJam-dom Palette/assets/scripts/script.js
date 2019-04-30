@@ -11,13 +11,20 @@ function setActive() {
                 current[0].className = current[0].className.replace(" active", "");
             }
             this.className += " active";
+            if (this === buttons[1]){
+                document.body.addEventListener("mouseup", chooseColor);
+            }
+        });
+        buttons[i].addEventListener("mousedown", function() {
+            if (buttonContainer[0].getElementsByClassName("active") !== buttons[1]){
+                document.body.removeEventListener("mouseup", chooseColor);
+            }
         });
     }
 }
 
 const canvas = document.getElementsByClassName("main__workspace__canvas");
 const canvasCells = canvas[0].getElementsByClassName("main__workspace__canvas__item");
-const stylesheet = document.styleSheets[0];
 
 function canvasRespond(){
     for (let i = 0; i < canvasCells.length; i++) {
@@ -26,7 +33,7 @@ function canvasRespond(){
                 canvasCells[i].style.backgroundColor = getComputedStyle(document.getElementsByClassName("main__workspace__colors__palette__item_color-display_current-color")[0]).backgroundColor;
             }
             if (buttonContainer[0].getElementsByClassName("active")[0] === buttons[3]){
-                if (getComputedStyle(canvasCells[i]).borderRadius == '0px'){
+                if (getComputedStyle(canvasCells[i]).borderRadius === '0px'){
                     canvasCells[i].style.borderRadius = '50%';
                 }
                 else
@@ -34,6 +41,16 @@ function canvasRespond(){
             }
         });
     }
+}
+
+
+function chooseColor() {
+        if ((buttonContainer[0].getElementsByClassName("active")[0] === buttons[1])&&(event.which == 1)){
+            const buffer = getComputedStyle(document.getElementById("curr-color")).backgroundColor;
+            document.getElementById("curr-color").style.backgroundColor = getComputedStyle(event.target).backgroundColor;
+            document.getElementById("prev-color").style.backgroundColor = buffer;
+            console.log(buffer);
+        }
 }
 
 setActive();
