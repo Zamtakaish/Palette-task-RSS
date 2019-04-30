@@ -21,6 +21,37 @@ function setActive() {
             }
         });
     }
+    document.addEventListener("keydown", function(event) {
+        if (event.key === 'b'||event.key === 'B'||event.key === 'и'||event.key === 'И'){
+            const current = buttonContainer[0].getElementsByClassName("active");
+            if (current.length > 0) {
+                current[0].className = current[0].className.replace(" active", "");
+            }
+            buttons[0].className += " active";
+        }
+        if (event.key === 'e'||event.key === 'E'||event.key === 'у'||event.key === 'У'){
+            const current = buttonContainer[0].getElementsByClassName("active");
+            if (current.length > 0) {
+                current[0].className = current[0].className.replace(" active", "");
+            }
+            buttons[1].className += " active";
+            document.body.addEventListener("mouseup", chooseColor);
+        }
+        if (event.key === 'm'||event.key === 'M'||event.key === 'ь'||event.key === 'Ь'){
+            const current = buttonContainer[0].getElementsByClassName("active");
+            if (current.length > 0) {
+                current[0].className = current[0].className.replace(" active", "");
+            }
+            buttons[2].className += " active";
+        }
+        if (event.key === 't'||event.key === 'T'||event.key === 'е'||event.key === 'Е'){
+            const current = buttonContainer[0].getElementsByClassName("active");
+            if (current.length > 0) {
+                current[0].className = current[0].className.replace(" active", "");
+            }
+            buttons[3].className += " active";
+        }
+    });
 }
 
 const canvas = document.getElementsByClassName("main__workspace__canvas");
@@ -64,22 +95,38 @@ function move(elem, e){
         return;
     }
 
-    let shiftX = e.pageX;
-    let shiftY = e.pageY;
+    /*elem.className = elem.className.replace(" droppable", "");*/
+
+    let downX = e.pageX;
+    let downY = e.pageY;
     const prevX = +getComputedStyle(elem).left.slice(0, -2);
     const prevY = +getComputedStyle(elem).top.slice(0, -2);
 
     elem.style.zIndex = 10;
 
     function moveAt(e) {
-        elem.style.left = prevX + e.pageX - shiftX + 'px';
-        elem.style.top = prevY +  e.pageY - shiftY + 'px';
+        elem.style.left = prevX + e.pageX - downX + 'px';
+        elem.style.top = prevY +  e.pageY - downY + 'px';
     }
 
     document.onmousemove = function(e) {
         moveAt(e);
     };
     elem.onmouseup = function() {
+/*        this.hidden = true;
+        console.log(e.clientX + ":" + e.clientY);
+        console.log(document.elementFromPoint(e.clientX, e.clientY).closest(".droppable"));
+        let dropLocation = document.elementFromPoint(e.clientX, e.clientY).closest(".droppable");
+        this.hidden = false;
+        if (dropLocation){
+            const bufferX = getComputedStyle(this).left;
+            const bufferY = getComputedStyle(this).top;
+            this.style.left = getComputedStyle(dropLocation).left;
+            this.style.top = getComputedStyle(dropLocation).top;
+            dropLocation.style.left = downX;
+            dropLocation.style.top = downY;
+        }
+        this.className += " droppable";*/
         document.onmousemove = null;
         elem.onmouseup = null;
     };
