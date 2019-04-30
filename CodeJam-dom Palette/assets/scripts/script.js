@@ -7,6 +7,13 @@ const canvasCells = canvas[0].getElementsByClassName("main__workspace__canvas__i
 const reset = document.getElementsByClassName("footer_button_reset")[0];
 
 function setActive() {
+    function resetActiveClass(index){
+        const current = buttonContainer[0].getElementsByClassName("active");
+        if (current.length > 0) {
+            current[0].className = current[0].className.replace(" active", "");
+        }
+        buttons[index].className += " active";
+    }
     function setActiveByKeybind(){
         document.addEventListener("keydown", function(event) {
             if (event.key === 'b'||event.key === 'B'||event.key === 'и'||event.key === 'И'){
@@ -30,13 +37,6 @@ function setActive() {
             });
         }
     }
-    function resetActiveClass(index){
-        const current = buttonContainer[0].getElementsByClassName("active");
-        if (current.length > 0) {
-            current[0].className = current[0].className.replace(" active", "");
-        }
-        buttons[index].className += " active";
-    }
 
     return function(){
         setActiveByClick();
@@ -46,7 +46,7 @@ function setActive() {
 
 function chooseColor(){
     function chooseColorHandler(event) {
-        let menuButton = document.elementFromPoint(event.clientX, event.clientY).closest(".main__workspace__tools__items__tool");
+        const menuButton = document.elementFromPoint(event.clientX, event.clientY).closest(".main__workspace__tools__items__tool");
         if ((buttonContainer[0].getElementsByClassName("active")[0] === buttons[1])&&(event.which === 1)&&(menuButton === null)){
             const buffer = getComputedStyle(document.getElementById("curr-color")).backgroundColor;
             document.getElementById("curr-color").style.backgroundColor = getComputedStyle(event.target).backgroundColor;
@@ -61,9 +61,9 @@ function fillCellByPaintBucket(){
     return function(){
         for (let i = 0; i < canvasCells.length; i++) {
             canvasCells[i].style.backgroundColor = localStorage.getItem("bckgr-clr-cell-" + i);
-            canvasCells[i].addEventListener("click", function(event) {
+            canvasCells[i].addEventListener("click", function() {
                 if (buttonContainer[0].getElementsByClassName("active")[0] === buttons[0]){
-                    let newColor = getComputedStyle(document.getElementsByClassName("main__workspace__colors__palette__item_color-display_current-color")[0]).backgroundColor;
+                    const newColor = getComputedStyle(document.getElementsByClassName("main__workspace__colors__palette__item_color-display_current-color")[0]).backgroundColor;
                     canvasCells[i].style.backgroundColor = newColor;
                     localStorage.setItem("bckgr-clr-cell-" + i, newColor)
                 }
@@ -75,13 +75,13 @@ function transformCell(){
     return function(){
         for (let i = 0; i < canvasCells.length; i++) {
             canvasCells[i].style.borderRadius = localStorage.getItem("form-cell-" + i);
-            canvasCells[i].addEventListener("click", function(event) {
+            canvasCells[i].addEventListener("click", function() {
                 if (buttonContainer[0].getElementsByClassName("active")[0] === buttons[3]){
                     if (getComputedStyle(canvasCells[i]).borderRadius === '0px'){
                         canvasCells[i].style.borderRadius = '50%';
                         localStorage.setItem("form-cell-" + i, '50%')
                     }
-                    else{
+                    else {
                         canvasCells[i].style.borderRadius = '0';
                         localStorage.setItem("form-cell-" + i, '0')
                     }
@@ -93,41 +93,26 @@ function transformCell(){
 
 function moveCell(){
     function move(elem, index, e){
-        if (e.which != 1) {
+        if (e.which !== 1) {
             return;
         }
-        /*elem.className = elem.className.replace(" droppable", "");*/
-        let downX = e.pageX;
-        let downY = e.pageY;
+        const downX = e.pageX;
+        const downY = e.pageY;
         const prevX = +getComputedStyle(elem).left.slice(0, -2);
         const prevY = +getComputedStyle(elem).top.slice(0, -2);
 
         elem.style.zIndex = 10;
         localStorage.setItem("z-index-cell-" + index, elem.style.zIndex);
 
-        function moveAt(e) {
-            elem.style.left = prevX + e.pageX - downX + 'px';
-            elem.style.top = prevY +  e.pageY - downY + 'px';
+        function moveAt(position) {
+            elem.style.left = prevX + position.pageX - downX + 'px';
+            elem.style.top = prevY + position.pageY - downY + 'px';
         }
 
-        document.onmousemove = function(e) {
-            moveAt(e);
+        document.onmousemove = function(el) {
+            moveAt(el);
         };
         elem.onmouseup = function() {
-            /*        this.hidden = true;
-                    console.log(e.clientX + ":" + e.clientY);
-                    console.log(document.elementFromPoint(e.clientX, e.clientY).closest(".droppable"));
-                    let dropLocation = document.elementFromPoint(e.clientX, e.clientY).closest(".droppable");
-                    this.hidden = false;
-                    if (dropLocation){
-                        const bufferX = getComputedStyle(this).left;
-                        const bufferY = getComputedStyle(this).top;
-                        this.style.left = getComputedStyle(dropLocation).left;
-                        this.style.top = getComputedStyle(dropLocation).top;
-                        dropLocation.style.left = downX;
-                        dropLocation.style.top = downY;
-                    }
-                    this.className += " droppable";*/
             document.onmousemove = null;
             elem.onmouseup = null;
             localStorage.setItem("placement-x-cell-" + index, elem.style.left);
@@ -160,7 +145,7 @@ function setCanvas(){
 
 function setAdditionalInterface(){
     function resetLocalStorage(){
-        reset.addEventListener("click", function(){
+        reset.addEventListener("click", function(event){
             if (event.which === 1){
                 localStorage.clear();
                 document.location.reload();
