@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Palette</title>
-    <link rel="stylesheet" href="palette/stylesheets/style.css">
+    <link rel="stylesheet" href="assets/stylesheets/style.css">
 </head>
 <body>
 <header class="header">
@@ -38,25 +38,25 @@
                 <ul class="main__workspace__colors__palette">
                     <li class="main__workspace__colors__palette__item">
                         <div class="main__workspace__colors__palette__item_color-display_wrapper">
-                            <div class="main__workspace__colors__palette__item_color-display"></div>
+                            <div class="main__workspace__colors__palette__item_color-display main__workspace__colors__palette__item_color-display_current-color" id="curr-color"></div>
                         </div>
                         <p class="main__workspace__colors__palette__item_current-color">Current color</p>
                     </li>
                     <li class="main__workspace__colors__palette__item">
                         <div class="main__workspace__colors__palette__item_color-display_wrapper">
-                            <div class="main__workspace__colors__palette__item_color-display"></div>
+                            <div class="main__workspace__colors__palette__item_color-display main__workspace__colors__palette__item_color-display_previous-color" id="prev-color"></div>
                         </div>
                         <p class="main__workspace__colors__palette__item_previous-color">Previous color</p>
                     </li>
                     <li class="main__workspace__colors__palette__item">
                         <div class="main__workspace__colors__palette__item_color-display_wrapper">
-                            <div class="main__workspace__colors__palette__item_color-display"></div>
+                            <div class="main__workspace__colors__palette__item_color-display main__workspace__colors__palette__item_color-display_preset-color-1"></div>
                         </div>
                         <p class="main__workspace__colors__palette__item_preset-color main__colors__palette__item_preset-color-1">Preset 1</p>
                     </li>
                     <li class="main__workspace__colors__palette__item">
                         <div class="main__workspace__colors__palette__item_color-display_wrapper">
-                            <div class="main__workspace__colors__palette__item_color-display"></div>
+                            <div class="main__workspace__colors__palette__item_color-display main__workspace__colors__palette__item_color-display_preset-color-2"></div>
                         </div>
                         <p class="main__workspace__colors__palette__item_preset-color main__colors__palette__item_preset-color-2">Preset 2</p>
                     </li>
@@ -79,5 +79,6 @@
     </article>
 </main>
 <footer class="footer"></footer>
+<script src="assets/scripts/script.js"></script>
 </body>
 </html>

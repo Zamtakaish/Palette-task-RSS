@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Quantico Regular";
-    src: url(../../assets/fonts/Quantico-Regular.otf) format("opentype");
+    src: url(../fonts/Quantico-Regular.otf) format("opentype");
 }
 
 *{
@@ -9,7 +9,7 @@
     font-family: "Quantico Regular", sans-serif;
 }
 body{
-    background-image: url(../../assets/pictures/background.jpg);
+    background-image: url(../pictures/background.jpg);
 }
 .header {
     max-width: 1400px;
@@ -22,7 +22,7 @@ body{
     border: 0 solid transparent;
     border-radius: 50px 50px 30px 30px;
     box-shadow: 0 5px 14px 6px #5df4e4;
-    background: linear-gradient(to bottom, rgba(174,154,230,1) 0%, rgba(8,76,212,1) 44%, rgba(8,207,214,1) 100%);
+    background: rgba(174, 154, 230, 1) linear-gradient(to bottom, rgba(174, 154, 230, 1) 0%, rgba(8, 76, 212, 1) 44%, rgba(8, 207, 214, 1) 100%);
 }
 .header__title{
     color: rgb(120, 255, 255);
@@ -93,11 +93,12 @@ body{
     height: 100%;
     font-size: 1vw;
     text-align: left;
+    outline-style: none;
     background: none;
     border: none;
     color: #09393E;
 }
-.main__workspace__tools__items__tool:hover{
+.main__workspace__tools__items__tool:hover, .active{
     background-color: #5df4e4;
 }
 .main__workspace__colors{
@@ -143,9 +144,6 @@ body{
     align-items: center;
     border-bottom: 1px solid rgba(93, 244, 228, 0.51);
 }
-.main__workspace__colors__palette__item:hover{
-    background-color: #5df4e4;
-}
 .main__workspace__colors__palette__item_color-display_wrapper{
     position: relative;
     width: 10%;
@@ -165,16 +163,33 @@ body{
     border: 1.5px solid rgba(93, 244, 228, 0.51);
     border-radius: 50%;
 }
-.main__workspace__colors__palette__item:hover .main__workspace__colors__palette__item_color-display{
+/*.main__workspace__colors__palette__item:hover{
+    background-color: #5df4e4;
+}*/
+/*.main__workspace__colors__palette__item:hover .main__workspace__colors__palette__item_color-display{
     background-color: #5df4e4;
     border-color: #09393E;
-}
+}*/
 .main__workspace__colors__palette__item p{
     width: 80%;
     font-size: 1vw;
     background-color: inherit;
     border: none;
     color: #09393E;
+}
+.main__workspace__colors__palette__item_color-display_current-color{
+    background-color: green;
+}
+.main__workspace__colors__palette__item_color-display_previous-color{
+    background-color: white;
+}
+.main__workspace__colors__palette__item_color-display_preset-color-1{
+    background-color: red;
+    z-index: 1000;
+}
+.main__workspace__colors__palette__item_color-display_preset-color-2{
+    background-color: blue;
+    z-index: 1000;
 }
 .main__workspace__canvas_wrapper{
     position: relative;
@@ -201,7 +216,7 @@ body{
 }
 .main__workspace__canvas__item{
     border: 1px solid #5df4e4;
-    border-radius: 0%;
+    border-radius: 0px;
     background-color: rgba(93,244,228,0.3);
     box-shadow: 0 0 6px 2px #5df4e4;
 }
@@ -217,5 +232,6 @@ body{
     border: 0 solid transparent;
     border-radius: 30px 30px 50px 50px;
     box-shadow: 0 -5px 14px 6px #5df4e4;
-    background: linear-gradient(to top, rgba(174,154,230,1) 0%, rgba(8,76,212,1) 44%, rgba(8,207,214,1) 100%);
+    background: white linear-gradient(to top, rgba(174, 154, 230, 1) 0%, rgba(8, 76, 212, 1) 44%, rgba(8, 207, 214, 1) 100%);
 }
+
