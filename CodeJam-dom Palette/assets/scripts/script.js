@@ -59,9 +59,12 @@ function chooseColor(){
 function fillCellByPaintBucket(){
     return function(){
         for (let i = 0; i < canvasCells.length; i++) {
+            canvasCells[i].style.backgroundColor = localStorage.getItem("bckgr-clr-cell-" + i);
             canvasCells[i].addEventListener("click", function(event) {
                 if (buttonContainer[0].getElementsByClassName("active")[0] === buttons[0]){
-                    canvasCells[i].style.backgroundColor = getComputedStyle(document.getElementsByClassName("main__workspace__colors__palette__item_color-display_current-color")[0]).backgroundColor;
+                    let newColor = getComputedStyle(document.getElementsByClassName("main__workspace__colors__palette__item_color-display_current-color")[0]).backgroundColor;
+                    canvasCells[i].style.backgroundColor = newColor;
+                    localStorage.setItem("bckgr-clr-cell-" + i, newColor)
                 }
             });
         }
@@ -70,13 +73,17 @@ function fillCellByPaintBucket(){
 function transformCell(){
     return function(){
         for (let i = 0; i < canvasCells.length; i++) {
+            canvasCells[i].style.borderRadius = localStorage.getItem("form-cell-" + i);
             canvasCells[i].addEventListener("click", function(event) {
                 if (buttonContainer[0].getElementsByClassName("active")[0] === buttons[3]){
                     if (getComputedStyle(canvasCells[i]).borderRadius === '0px'){
                         canvasCells[i].style.borderRadius = '50%';
+                        localStorage.setItem("form-cell-" + i, '50%')
                     }
-                    else
+                    else{
                         canvasCells[i].style.borderRadius = '0';
+                        localStorage.setItem("form-cell-" + i, '0')
+                    }
                 }
             });
         }
@@ -84,7 +91,7 @@ function transformCell(){
 }
 
 function moveCell(){
-    function move(elem, e){
+    function move(elem, index, e){
         if (e.which != 1) {
             return;
         }
@@ -95,6 +102,7 @@ function moveCell(){
         const prevY = +getComputedStyle(elem).top.slice(0, -2);
 
         elem.style.zIndex = 10;
+        localStorage.setItem("z-index-cell-" + index, elem.style.zIndex);
 
         function moveAt(e) {
             elem.style.left = prevX + e.pageX - downX + 'px';
@@ -121,6 +129,8 @@ function moveCell(){
                     this.className += " droppable";*/
             document.onmousemove = null;
             elem.onmouseup = null;
+            localStorage.setItem("placement-x-cell-" + index, elem.style.left);
+            localStorage.setItem("placement-y-cell-" + index, elem.style.top);
         };
 
         elem.ondragstart = function() {
@@ -129,9 +139,12 @@ function moveCell(){
     }
     return function(){
         for (let i = 0; i < canvasCells.length; i++) {
+            canvasCells[i].style.left = localStorage.getItem("placement-x-cell-" + i);
+            canvasCells[i].style.top = localStorage.getItem("placement-y-cell-" + i);
+            canvasCells[i].style.zIndex = localStorage.getItem("z-index-cell-" + i);
             canvasCells[i].addEventListener("mousedown", function (event) {
                 if (buttonContainer[0].getElementsByClassName("active")[0] === buttons[2]) {
-                    move(this, event);
+                    move(this, i, event);
                 }
             });
         }
