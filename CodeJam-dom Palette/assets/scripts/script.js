@@ -40,6 +40,11 @@ function canvasRespond(){
                     canvasCells[i].style.borderRadius = '0';
             }
         });
+        canvasCells[i].addEventListener("mousedown", function(event){
+            if (buttonContainer[0].getElementsByClassName("active")[0] === buttons[2]){
+                move(this, event);
+            }
+        });
     }
 }
 
@@ -51,6 +56,33 @@ function chooseColor() {
             document.getElementById("prev-color").style.backgroundColor = buffer;
             console.log(buffer);
         }
+}
+
+function move(elem, e){
+    let shiftX = e.pageX;
+    let shiftY = e.pageY;
+    const prevX = +getComputedStyle(elem).left.slice(0, -2);
+    const prevY = +getComputedStyle(elem).top.slice(0, -2);
+
+    elem.style.zIndex = 10;
+
+    function moveAt(e) {
+        elem.style.left = prevX + e.pageX - shiftX + 'px';
+        elem.style.top = prevY +  e.pageY - shiftY + 'px';
+    }
+
+    document.onmousemove = function(e) {
+        moveAt(e);
+    };
+
+    elem.onmouseup = function() {
+        document.onmousemove = null;
+        elem.onmouseup = null;
+    };
+
+    elem.ondragstart = function() {
+        return false;
+    };
 }
 
 setActive();
